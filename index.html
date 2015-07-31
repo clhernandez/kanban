@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Kanbanchan</title>
+	<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.indigo-light_green.min.css" /> 
+	<script src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<style>
+		.mdl-cell{
+			border: 1px solid black;
+			cursor: move;
+		}
+        .card-wide.mdl-card{
+            width: 402px;
+        }
+        .mdl-card{cursor: move;}
+        .mdl-card.over {
+            border: 2px dashed #000;
+        }
+		.mdl-cell.over {
+			border: 2px dashed #000;
+		}
+	</style>
+</head>
+<body>
+	<div class="mdl-layout mdl-js-layout mdl-layout--overlay-drawer-button">
+		<header class="mdl-layout__header">
+			<div class="mdl-layout-icon"></div>
+			<div class="mdl-layout__header-row">
+				<span class="mdl-layout-title">KANBAN CHAN</span>
+				<div class="mdl-layout-spacer"></div>
+				<nav class="mdl-navigation">
+			        <a id="addLane" class="mdl-navigation__link" href="#">Add Lane</a>
+		        	<a class="mdl-navigation__link" href="#">{{Name}}</a>
+		      	</nav>
+			</div>
+  		</header>
+  		<main class="mdl-layout__content">
+			<div id="grid" class="mdl-grid">
+				<div id="init" class="mdl-card mdl-shadow--4dp card-wide" draggable="true">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text" contentEditable="true">Lane1</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text mdl-card--border">
+
+                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                            <thead>
+                                <tr>
+                                    <th class="mdl-data-table__cell--non-numeric">Tarea</th>
+                                    <th>Fecha</th>
+                                    <th>Edit/Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
+                                    <td>25</td>
+                                    <td>$2.90</td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
+                                    <td>50</td>
+                                    <td>$1.25</td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
+                                    <td>10</td>
+                                    <td>$2.35</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="mdl-card__actions">
+                        <a href="(URL or function)">Related Action</a>
+                    </div>
+                </div>
+
+                <div id="init2" class="mdl-card mdl-shadow--4dp card-wide" draggable="true">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text" contentEditable="true">Lane2</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text mdl-card--border">
+
+                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                            <thead>
+                                <tr>
+                                    <th class="mdl-data-table__cell--non-numeric">Tarea</th>
+                                    <th>Fecha</th>
+                                    <th>Edit/Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
+                                    <td>25</td>
+                                    <td>$2.90</td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
+                                    <td>50</td>
+                                    <td>$1.25</td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
+                                    <td>10</td>
+                                    <td>$2.35</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="mdl-card__actions">
+                        <a href="(URL or function)">Related Action</a>
+                    </div>
+                </div>
+
+			</div>
+	  	</main>
+  		
+	</div>
+</body>
+<script src="js/dnd.js"></script>
+<script>
+	(function() {
+		var grid = document.getElementById("grid");
+		
+		function createNewLane(){
+			var newLane = document.createElement("div");
+			var newTitle = document.createElement("div");
+			var newContent = document.createElement("div");
+			newLane.className = "mdl-card";
+			newLane.draggable = "true";
+
+			newTitle.innerHTML = "New Lane";
+			newTitle.contentEditable = "true";
+			newLane.appendChild(newTitle);
+			newContent.id = "1";
+			newLane.appendChild(newContent);
+			return newLane;
+		}
+
+		function addLane(){
+			var cells = document.getElementsByClassName("mdl-card");
+			var countCells = cells.length;
+
+			if(countCells < 12 ){
+				var newLane = createNewLane();
+				grid.appendChild(newLane);
+				appendDAD(newLane);
+
+				cols = document.querySelectorAll('.mdl-card');
+
+				for (var i = 0; i < cells.length; i++) {
+					if(cells.length <7){
+						cells[i].className="mdl-card mdl-shadow--4dp card-wide";
+					}else{
+						cells[i].className="mdl-card mdl-shadow--4dp card-wide-1";
+					}
+				}
+				
+			}
+
+		}
+
+		var addLaneLink = document.getElementById("addLane");
+		console.log(addLaneLink);
+		addLaneLink.addEventListener("click", addLane, false);
+		appendDAD(document.getElementById("init"));//only in development
+        appendDAD(document.getElementById("init2"));//only in development
+
+		
+	})();
+</script>
+</html>
