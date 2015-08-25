@@ -1,5 +1,25 @@
 (function() {
+	//Global Var
 	var grid = document.getElementById("grid");
+	var flagLaneDAD = true;
+	var addLaneLink = document.getElementById("addLane");
+	var toggleDADLink = document.getElementById("toggleDAD");
+
+	//Initial Events
+	addLaneLink.addEventListener("click", addLane, false);
+	toggleDADLink.addEventListener("click", toggleLaneDADCard, false);
+	appendDAD(document.getElementById("init"));//only in development
+	appendDAD(document.getElementById("init2"));//only in development
+	toggleLaneDADCard();
+	//test
+	var trs = document.querySelectorAll("tr");
+	cols  = trs;
+	for (var i = 0; i < trs.length; i++) {
+		if(trs[i].className.indexOf("head_table")<0)
+			trs[i].draggable = true;
+		
+		appendDADfa(trs[i]);	
+	};
 
 	function createNewLane(){
 		var newLane = document.createElement("div");
@@ -66,28 +86,8 @@
 			}
 		}
 		flagLaneDAD = (flagLaneDAD)? false : true;
+		toggleDADLink.parentElement.className = (flagLaneDAD)? "active" : "";
 	}
-
-	//Global Var
-	var flagLaneDAD = true;
-	var addLaneLink = document.getElementById("addLane");
-	var toggleDADLink = document.getElementById("toggleDAD");
-
-	//Initial Events
-	addLaneLink.addEventListener("click", addLane, false);
-	toggleDADLink.addEventListener("click", toggleLaneDADCard, false);
-	appendDAD(document.getElementById("init"));//only in development
-	appendDAD(document.getElementById("init2"));//only in development
-	toggleLaneDADCard();
-	//test
-	var trs = document.querySelectorAll("tr");
-	cols  = trs;
-	for (var i = 0; i < trs.length; i++) {
-		if(trs[i].className.indexOf("head_table")<0)
-			trs[i].draggable = true;
-		
-		appendDADfa(trs[i]);	
-	};
 
 		
 })();

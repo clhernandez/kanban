@@ -3,38 +3,29 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Kanbanchan</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<style>
-		.mdl-cell{
-			border: 1px solid black;
-			cursor: move;
-		}
-         .card-wide.mdl-card{
-            width: 395px;
-        } 
-        .mdl-card{cursor: move;}
-        .mdl-card.over {
-            border: 2px dashed #000;
-        }
-		.mdl-cell.over {
-			border: 2px dashed #000;
-		}
-	</style>
+	<link rel="stylesheet" href="css/bootstrap.min.css" /> 
 </head>
 <body>
-	<div class="mdl-layout mdl-js-layout mdl-layout--overlay-drawer-button">
-		<header class="mdl-layout__header">
-			<div class="mdl-layout-icon"></div>
-			<div class="mdl-layout__header-row">
-				<span class="mdl-layout-title"></span>
-				<div class="mdl-layout-spacer"></div>
-				<nav class="mdl-navigation">
-			        <a id="addLane" class="mdl-navigation__link" href="#">Add Lane</a>
-		        	<a class="mdl-navigation__link" href="#">{{Name}}</a>
-                    <a id="toggleDAD" class="mdl-navigation__link" href="#">Toggle Lane dnd</a>
-		      	</nav>
-			</div>
+	<div class="container-fluid">
+		<header class="navbar navbar-default">
+            <nav class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Kanban</a>
+            </nav>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav pull-right">
+                    <li><a id="addLane" href="#">Add Lane <span class="sr-only">(current)</span></a></li>
+                    <li><a id="toggleDAD" href="#">Toggle DaD<span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">{{Name}}</a></li>
+                </ul>
+            </div>
   		</header>
+
   		<main class="mdl-layout__content">
 			<div id="grid" class="mdl-grid">
 
