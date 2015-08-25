@@ -1,8 +1,10 @@
 //drag&drop
 var dragSrcEl = null;
+var nee = null;
 var cols = document.querySelectorAll('.mdl-card');//null in production;
+
 function handleDragStart(e) {
-	this.style.opacity = '0.4';  // this / e.target is the source node.
+	this.style.opacity = '0.99';  // this / e.target is the source node.
 	dragSrcEl = this;
 
 	e.dataTransfer.effectAllowed = 'move';
@@ -43,6 +45,20 @@ function handleDrop(e) {
 	return false;
 }
 
+function handleDropAppend(e) {
+	// this / e.target is current target element.
+
+	if (e.stopPropagation) {
+		e.stopPropagation(); // stops the browser from redirecting.
+	}
+
+	if (dragSrcEl != this) {
+		// Append the source element to the html of the dropped one.
+		this.parentElement.appendChild(dragSrcEl);
+	}
+	return false;
+}
+
 function handleDragEnd(e) {
   // this/e.target is the source node.
 
@@ -60,4 +76,23 @@ function appendDAD(element){
 	element.addEventListener('dragleave', handleDragLeave, false);
   	element.addEventListener('drop', handleDrop, false);
 	element.addEventListener('dragend', handleDragEnd, false);
+}
+
+function appendDADfa(element){
+	element.addEventListener('dragstart', handleDragStart, false);
+	element.addEventListener('dragenter', handleDragEnter, false);
+	element.addEventListener('dragover', handleDragOver, false);
+	element.addEventListener('dragleave', handleDragLeave, false);
+  	element.addEventListener('drop', handleDropAppend, false);
+	element.addEventListener('dragend', handleDragEnd, false);
+}
+
+function removeDAD(element){
+	element.removeEventListener('dragstart', handleDragStart, false);
+	element.removeEventListener('dragenter', handleDragEnter, false);
+	element.removeEventListener('dragover', handleDragOver, false);
+	element.removeEventListener('dragleave', handleDragLeave, false);
+  	element.removeEventListener('drop', handleDrop, false);
+  	element.removeEventListener('drop', handleDropAppend, false);
+	element.removeEventListener('dragend', handleDragEnd, false);
 }
