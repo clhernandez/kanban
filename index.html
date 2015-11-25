@@ -3,106 +3,49 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Kanbanchan</title>
-	<link rel="stylesheet" href="css/bootstrap.min.css" /> 
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet/less" type="text/css" href="css/styles.less" />
+    <script src="js/less.min.js"></script>
 </head>
 <body>
+    <header class="navbar navbar-default">
+        <nav class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Kanban_Chan</a>
+        </nav>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav pull-right">
+                <li><a id="addLane" href="#">Add Lane <span class="sr-only">(current)</span></a></li>
+                <li><a id="toggleDAD" href="#">Toggle DaD<span class="sr-only">(current)</span></a></li>
+                <li><a href="#">{{Name}}</a></li>
+            </ul>
+        </div>
+    </header>
 	<div class="container-fluid">
-		<header class="navbar navbar-default">
-            <nav class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#">Kanban</a>
-            </nav>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav pull-right">
-                    <li><a id="addLane" href="#">Add Lane <span class="sr-only">(current)</span></a></li>
-                    <li><a id="toggleDAD" href="#">Toggle DaD<span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">{{Name}}</a></li>
-                </ul>
+        <div class="col-md-3-5 col-xs-12 lane">
+            <div class="title-lane" contentEditable="true">BACKLOG</div>
+            <div class="task-lane">
+                <div class="task clearfix">
+                    <div class="task-title pull-left" contentEditable="true">146293 - Cartola Histórica - Corregir txt y pdf</div>
+                    <div class="task-opts pull-left">
+                        <span class="glyphicon glyphicon-edit" onclick="toogleTaskEdit(this);"></span>
+                    </div>
+                    <div class="task-notes" style="display:none;">
+                        <div class="task-date" contentEditable="true">27/11/2015</div>
+                        <div contentEditable="true">Algún texto que el usuario quiera agragar</div>
+                    </div>
+                </div>
             </div>
-  		</header>
+        </div>
 
-  		<main class="mdl-layout__content">
-			<div id="grid" class="mdl-grid">
 
-				<div id="init" class="mdl-card mdl-shadow--4dp card-wide" draggable="true">
-                    <div class="mdl-card__title">
-                        <h2 class="mdl-card__title-text" contentEditable="true">Lane1</h2>
-                    </div>
-                    <div class="mdl-card__supporting-text mdl-card--border">
+    </div>
 
-                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp card-wide">
-                            <thead>
-                                <tr class="head_table">
-                                    <th class="mdl-data-table__cell--non-numeric">Tarea</th>
-                                    <th>Fecha</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
-                                    <td>10/10/2012</td>
-                                </tr>
-                                <tr>
-                                    <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
-                                    <td>10/10/2012</td>
-                                </tr>
-                                <tr>
-                                    <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
-                                    <td>10/10/2012</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                    </div>
-                    <div class="mdl-card__actions">
-                        <a href="(URL or function)">Related Action</a>
-                    </div>
-                </div>
-
-                <div id="init2" class="mdl-card mdl-shadow--4dp card-wide" draggable="true">
-                    <div class="mdl-card__title">
-                        <h2 class="mdl-card__title-text" contentEditable="true">Lane2</h2>
-                    </div>
-                    <div class="mdl-card__supporting-text mdl-card--border">
-
-                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                            <thead>
-                                <tr class="head_table">
-                                    <th class="mdl-data-table__cell--non-numeric">Tarea</th>
-                                    <th>Fecha</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
-                                    <td>25</td>
-                                </tr>
-                                <tr>
-                                    <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
-                                    <td>50</td>
-                                </tr>
-                                <tr>
-                                    <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
-                                    <td>10</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                    </div>
-                    <div class="mdl-card__actions">
-                        <a href="(URL or function)">Related Action</a>
-                    </div>
-                </div>
-
-			</div>
-	  	</main>
-  		
-	</div>
 </body>
 <script src="js/md5.js"></script>
 <script src="js/dnd.js"></script>

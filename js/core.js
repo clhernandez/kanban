@@ -104,3 +104,14 @@ function getRandom(){
 	}
 	return arr.toString();
 }
+
+
+function toogleTaskEdit(el){
+	if(el.parentElement.parentElement.children[2]!=null){
+		if(el.parentElement.parentElement.children[2].style.display != "block"){
+			el.parentElement.parentElement.children[2].style.display = "block";
+		}else{
+			el.parentElement.parentElement.children[2].style.display = "none";
+		}
+	}
+}
