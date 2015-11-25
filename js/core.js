@@ -1,6 +1,6 @@
 (function() {
 	//Global Var
-	var grid = document.getElementById("grid");
+	var grid = document.getElementById("laneHolder");
 	var flagLaneDAD = true;
 	var addLaneLink = document.getElementById("addLane");
 	var toggleDADLink = document.getElementById("toggleDAD");
@@ -36,39 +36,59 @@
 		return newLane;
 	}
 
-	function createNewCard(){
-		var card = document.createElement("div");
-		card.id = CryptoJS.MD5(getRandom());
-		card.className = "mdl-card mdl-shadow--4dp card-wide"
-		card.draggable = "true";
-			var cardTitle = document.createElement("div");
-			cardTitle.className = "mdl-card__title";
-				var cardTitleH2 = document.createElement("h2");
-				cardTitleH2.className = "mdl-card__title-text";
-				cardTitleH2.contentEditable = "true";
-				cardTitleH2.innerHTML = "New Lane";
-				cardTitle.appendChild(cardTitleH2);
-			card.appendChild(cardTitle);
-			var cardText = document.createElement("div");
-			cardText.className = "mdl-card__supporting-text mdl-card--border";
-				var cardTable  = document.createElement("table");
-				cardTable.id = "tab_"+card.id
-				cardTable.className = "mdl-data-table mdl-js-data-table mdl-shadow--2dp";
-				var headTable = "<thead><tr><th class='mdl-data-table__cell--non-numeric'>tarea</th><th>Fecha</th></tr></thead>";
-				cardTable.innerHTML = headTable + "<tr><td class='mdl-data-table__cell--non-numeric'>Acrylic (Transparent)</td><td>25</td></tr>";
-				cardText.appendChild(cardTable);
-			card.appendChild(cardText);
-		return card;
+	function createNewTaskLane(){
+		var lane = document.createElement("div");
+		lane.id = CryptoJS.MD5(getRandom());
+		lane.className = "col-md-3-5 col-xs-12 lane"
+		//lane.draggable = "true";
+			var laneTitle = document.createElement("div");
+			laneTitle.className = "lane-title";
+				laneTitle.contentEditable = "true";
+				laneTitle.innerHTML = "New Lane";
+		lane.appendChild(laneTitle);
+			var laneTask = document.createElement("div");
+			laneTask.className = "lane-tasks";
+				var task = document.createElement("div")
+				task.className = "task clearfix";
+					var taskTitle = document.createElement("div");
+					taskTitle.className = "task-title pull-left";
+					taskTitle.contentEditable = "true";
+					taskTitle.innerHTML = "New Task";
+				task.appendChild(taskTitle);
+					var taskOpts = document.createElement("div");
+					taskOpts.className = "task-opts pull-left";
+						var linkTaskOpts = document.createElement("span");
+						linkTaskOpts.className = "glyphicon glyphicon-edit";
+						linkTaskOpts.setAttribute("onClick", "toogleTaskEdit(this);");
+					taskOpts.appendChild(linkTaskOpts);
+				task.appendChild(taskOpts);
+					var taskNotes = document.createElement("div");
+					taskNotes.className = "task-notes pull-left";
+					taskNotes.style.display = "none";
+						var taskDate = document.createElement("div");
+						taskDate.className = "task-date";
+						taskDate.contentEditable = "true";
+						taskDate.innerHTML = moment().format("DD/MM/YYYY");
+					taskNotes.appendChild(taskDate);
+						var taskText = document.createElement("div");
+						taskText.className = "task-text";
+						taskText.contentEditable = "true";
+						taskText.innerHTML = "Some text related to the task.";
+					taskNotes.appendChild(taskText);
+				task.appendChild(taskNotes);
+			laneTask.appendChild(task);
+		lane.appendChild(laneTask);
+		return lane;
 	}
 
 	function addLane(){
-		var cells = document.getElementsByClassName("mdl-card");
-		var countCells = cells.length;
+		var taskLanes = document.getElementsByClassName("lane");
+		var countTaskLanes = taskLanes.length;
 
-		if(countCells < 4 ){
-			var newLane = createNewCard();
+		if(countTaskLanes < 4 ){
+			var newLane = createNewTaskLane();
 			grid.appendChild(newLane);
-			appendDAD(newLane);	
+			//appendDAD(newLane);	
 		}
 
 	}
