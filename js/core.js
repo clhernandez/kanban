@@ -10,8 +10,8 @@ var dev;//only for dev purposes.
 	addLaneLink.addEventListener("click", addLane, false);
 	toggleDADLink.addEventListener("click", toggleLaneDADCard, false);
 	appendDAD(document.getElementById("init"));//only in development
-	appendDAD(document.getElementById("init2"));//only in development
-	toggleLaneDADCard();
+	//appendDAD(document.getElementById("init2"));//only in development
+	//toggleLaneDADCard();
 	//test
 	var trs = document.querySelectorAll("tr");
 	cols  = trs;
@@ -21,8 +21,6 @@ var dev;//only for dev purposes.
 		
 		appendDADfa(trs[i]);	
 	};
-
-	flagLaneDAD = (flagLaneDAD)? false : true;
 	toggleDADLink.parentElement.className = (flagLaneDAD)? "active" : "";
 })();
 
@@ -33,7 +31,7 @@ var dev;//only for dev purposes.
 		if(countTaskLanes < 4 ){
 			var newLane = createNewLane();
 			grid.appendChild(newLane);
-			//appendDAD(newLane);	
+			appendDAD(newLane);	
 		}
 
 	}
@@ -42,7 +40,7 @@ var dev;//only for dev purposes.
 		var lane = document.createElement("div");
 		lane.id = CryptoJS.MD5(getRandom());
 		lane.className = "col-md-3-5 col-xs-12 lane"
-		//lane.draggable = "true";
+		lane.draggable = "true";
 			var laneTitle = document.createElement("div");
 			laneTitle.className = "lane-title clearfix";
 				var title = document.createElement("span");
@@ -100,7 +98,7 @@ var dev;//only for dev purposes.
 	}
 	
 	function toggleLaneDADCard(){
-		cells = document.querySelectorAll('.mdl-card');
+		cells = document.querySelectorAll('.lane');
 		for (var i = 0; i < cells.length; i++) {
 			if(flagLaneDAD){
 				removeDAD(cells[i]);
@@ -110,6 +108,8 @@ var dev;//only for dev purposes.
 				cells[i].draggable = true;
 			}
 		}
+		flagLaneDAD = !flagLaneDAD;
+		toggleDADLink.parentElement.className = (flagLaneDAD)? "active" : "";
 	}
 
 	function addTaskToLane(el){

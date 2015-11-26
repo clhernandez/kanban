@@ -1,7 +1,7 @@
 //drag&drop
 var dragSrcEl = null;
 var nee = null;
-var cols = document.querySelectorAll('.mdl-card');//null in production;
+var cols = document.querySelectorAll('.lane');//null in production;
 
 function handleDragStart(e) {
 	this.style.opacity = '0.99';  // this / e.target is the source node.
