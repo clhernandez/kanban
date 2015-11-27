@@ -4,50 +4,44 @@ var flagLaneDAD = true;
 var addLaneLink = document.getElementById("addLane");
 var toggleDADLink = document.getElementById("toggleDAD");
 var dev;//only for dev purposes.
-
+var cnt = 1;
 (function() {
 	//Initial Events that execute only when dom is ready.
 	addLaneLink.addEventListener("click", addLane, false);
 	toggleDADLink.addEventListener("click", toggleLaneDADCard, false);
-	appendDAD(document.getElementById("init"));//only in development
-	//appendDAD(document.getElementById("init2"));//only in development
-	//toggleLaneDADCard();
-	//test
-	var trs = document.querySelectorAll("tr");
-	cols  = trs;
-	for (var i = 0; i < trs.length; i++) {
-		if(trs[i].className.indexOf("head_table")<0)
-			trs[i].draggable = true;
-		
-		appendDADfa(trs[i]);	
-	};
+	//appendDAD(document.getElementById("init"));//only in development
+	//addDropHandler(document.getElementsByClassName("lane-tasks")[0]);
+	//addDragHandler(document.getElementsByClassName("task")[0]);
+
 	toggleDADLink.parentElement.className = (flagLaneDAD)? "active" : "";
+	addLane("BACKLOG");
+	addLane("DEV");
 })();
 
-	function addLane(){
+	function addLane(title){
 		var taskLanes = document.getElementsByClassName("lane");
 		var countTaskLanes = taskLanes.length;
 
 		if(countTaskLanes < 4 ){
-			var newLane = createNewLane();
+			var newLane = createNewLane(title);
 			grid.appendChild(newLane);
-			appendDAD(newLane);	
+			//appendDAD(newLane);	
 		}
 
 	}
 
-	function createNewLane(){
+	function createNewLane(title){
 		var lane = document.createElement("div");
 		lane.id = CryptoJS.MD5(getRandom());
 		lane.className = "col-md-3-5 col-xs-12 lane"
-		lane.draggable = "true";
+		//lane.draggable = flagLaneDAD;
 			var laneTitle = document.createElement("div");
 			laneTitle.className = "lane-title clearfix";
-				var title = document.createElement("span");
-				title.className = "pull-left";
-				title.contentEditable = "true";
-				title.innerHTML = "New Lane";
-			laneTitle.appendChild(title);
+				var titleSpan = document.createElement("span");
+				titleSpan.className = "pull-left";
+				titleSpan.contentEditable = "true";
+				titleSpan.innerHTML = title;
+			laneTitle.appendChild(titleSpan);
 				var btnAddtask = document.createElement("span");
 				btnAddtask.className = "glyphicon glyphicon-plus pull-right";
 				btnAddtask.setAttribute("onClick", "addTaskToLane(this);");
@@ -56,17 +50,23 @@ var dev;//only for dev purposes.
 			var laneTask = document.createElement("div");
 			laneTask.className = "lane-tasks";
 			laneTask.appendChild(createNewTask());
+			laneTask.setAttribute("ondrop", "dropHandler(event);");
+			laneTask.setAttribute("ondragover", "allowDropHandler(event)");
 		lane.appendChild(laneTask);
+		//addDropHandler(lane);
 		return lane;
 	}
 
 	function createNewTask(){
 		var task = document.createElement("div")
+		task.id =  CryptoJS.MD5(getRandom());	
 		task.className = "task clearfix";
+		task.draggable = "true";
+		task.setAttribute("ondragstart","dragHandler(event);")
 			var taskTitle = document.createElement("div");
 			taskTitle.className = "task-title pull-left";
 			taskTitle.contentEditable = "true";
-			taskTitle.innerHTML = "New Task";
+			taskTitle.innerHTML = cnt + " New Task";
 		task.appendChild(taskTitle);
 			var taskOpts = document.createElement("div");
 			taskOpts.className = "task-opts pull-left";
@@ -94,6 +94,8 @@ var dev;//only for dev purposes.
 				taskText.innerHTML = "Some text related to the task.";
 			taskNotes.appendChild(taskText);
 		task.appendChild(taskNotes);
+		//addDragHandler(task);
+		cnt++;
 		return task;
 	}
 	
