@@ -1,0 +1,134 @@
+diff --git a/css/styles.less b/css/styles.less
+index ff52c8c..88c831c 100644
+--- a/css/styles.less
++++ b/css/styles.less
+@@ -12,13 +12,12 @@ body{
+ 	.lane{
+ 	    background-color: #FFA404;
+ 	    padding-bottom: 20px;
+-	    height: 80vh;
+ 	    display: block;
+ 	    margin: 10px;
+ 	    font-size: 16px;
+ 	    color: #072D68;
+ 	    word-wrap: break-word;
+-	    //cursor: move;
++	    cursor: pointer;
+ 	    .lane-title{
+ 			//color: #2c3e50;
+ 			font: Arial;
+@@ -30,7 +29,8 @@ body{
+ 			}
+ 	    }
+ 	    .lane-tasks{
+-	    	height: 100vh;
++	    	height: 70vh;
++	    	cursor: pointer;
+ 			.task{
+ 				margin-bottom: 5px;
+ 				border-bottom: 1px solid #0B3A84;
+diff --git a/index.html b/index.html
+index 2509a80..d234b0b 100644
+--- a/index.html
++++ b/index.html
+@@ -27,25 +27,7 @@
+         </div>
+     </header>
+ 	<div id="laneHolder" class="container-fluid">
+-<!--         <div class="col-md-3-5 col-xs-12 lane" id="init" draggable="true">
+-    <div class="lane-title clearfix">
+-        <span class="pull-left" contentEditable="true">BACKLOG</span>
+-        <span class=" glyphicon glyphicon-plus pull-right" onclick="addTaskToLane(this);"></span>
+-    </div>
+-    <div class="lane-tasks">
+-        <div class="task clearfix" draggable="true">
+-            <div class="task-title pull-left" contentEditable="true">9999 - Default task with long title</div>
+-            <div class="task-opts pull-left">
+-                <span class="glyphicon glyphicon-edit" onclick="toogleTaskEdit(this);"></span>
+-                <span class="glyphicon glyphicon-remove" onclick="removeTask(this);"></span>
+-            </div>
+-            <div class="task-notes" style="display:none;">
+-                <div class="task-date" contentEditable="true">27/11/2015</div>
+-                <div class="task-text" contentEditable="true">Some text related to the task.</div>
+-            </div>
+-        </div>
+-    </div>
+-</div> -->
++    <!-- Here will be created the lanes that will contains the new tasks -->
+     </div>
+ 
+ </body>
+diff --git a/js/core.js b/js/core.js
+index 65d5016..d3f9a72 100644
+--- a/js/core.js
++++ b/js/core.js
+@@ -4,18 +4,15 @@ var flagLaneDAD = true;
+ var addLaneLink = document.getElementById("addLane");
+ var toggleDADLink = document.getElementById("toggleDAD");
+ var dev;//only for dev purposes.
+-var cnt = 1;
++var cnt = 1;//only for dev.
+ (function() {
+ 	//Initial Events that execute only when dom is ready.
+ 	addLaneLink.addEventListener("click", addLane, false);
+-	toggleDADLink.addEventListener("click", toggleLaneDADCard, false);
+-	//appendDAD(document.getElementById("init"));//only in development
+-	//addDropHandler(document.getElementsByClassName("lane-tasks")[0]);
+-	//addDragHandler(document.getElementsByClassName("task")[0]);
++	toggleDADLink.addEventListener("click", toggleLaneDAD, false);
+ 
+ 	toggleDADLink.parentElement.className = (flagLaneDAD)? "active" : "";
+-	addLane("BACKLOG");
+-	addLane("DEV");
++	addLane("BACKLOG");//dev
++	addLane("DEV");//dev
+ })();
+ 
+ 	function addLane(title){
+@@ -25,22 +22,21 @@ var cnt = 1;
+ 		if(countTaskLanes < 4 ){
+ 			var newLane = createNewLane(title);
+ 			grid.appendChild(newLane);
+-			//appendDAD(newLane);	
+ 		}
+ 
+ 	}
+ 
+ 	function createNewLane(title){
++		console.log(title);
+ 		var lane = document.createElement("div");
+ 		lane.id = CryptoJS.MD5(getRandom());
+ 		lane.className = "col-md-3-5 col-xs-12 lane"
+-		//lane.draggable = flagLaneDAD;
+ 			var laneTitle = document.createElement("div");
+ 			laneTitle.className = "lane-title clearfix";
+ 				var titleSpan = document.createElement("span");
+ 				titleSpan.className = "pull-left";
+ 				titleSpan.contentEditable = "true";
+-				titleSpan.innerHTML = title;
++				titleSpan.innerHTML = (typeof title=="string")?title : "New Lane";
+ 			laneTitle.appendChild(titleSpan);
+ 				var btnAddtask = document.createElement("span");
+ 				btnAddtask.className = "glyphicon glyphicon-plus pull-right";
+@@ -53,7 +49,6 @@ var cnt = 1;
+ 			laneTask.setAttribute("ondrop", "dropHandler(event);");
+ 			laneTask.setAttribute("ondragover", "allowDropHandler(event)");
+ 		lane.appendChild(laneTask);
+-		//addDropHandler(lane);
+ 		return lane;
+ 	}
+ 
+@@ -94,12 +89,11 @@ var cnt = 1;
+ 				taskText.innerHTML = "Some text related to the task.";
+ 			taskNotes.appendChild(taskText);
+ 		task.appendChild(taskNotes);
+-		//addDragHandler(task);
+ 		cnt++;
+ 		return task;
+ 	}
+ 	
+-	function toggleLaneDADCard(){
++	function toggleLaneDAD(){
+ 		cells = document.querySelectorAll('.lane');
+ 		for (var i = 0; i < cells.length; i++) {
+ 			if(flagLaneDAD){

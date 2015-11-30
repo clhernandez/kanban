@@ -4,18 +4,15 @@ var flagLaneDAD = true;
 var addLaneLink = document.getElementById("addLane");
 var toggleDADLink = document.getElementById("toggleDAD");
 var dev;//only for dev purposes.
-var cnt = 1;
+var cnt = 1;//only for dev.
 (function() {
 	//Initial Events that execute only when dom is ready.
 	addLaneLink.addEventListener("click", addLane, false);
-	toggleDADLink.addEventListener("click", toggleLaneDADCard, false);
-	//appendDAD(document.getElementById("init"));//only in development
-	//addDropHandler(document.getElementsByClassName("lane-tasks")[0]);
-	//addDragHandler(document.getElementsByClassName("task")[0]);
+	toggleDADLink.addEventListener("click", toggleLaneDAD, false);
 
 	toggleDADLink.parentElement.className = (flagLaneDAD)? "active" : "";
-	addLane("BACKLOG");
-	addLane("DEV");
+	addLane("BACKLOG");//dev
+	addLane("DEV");//dev
 })();
 
 	function addLane(title){
@@ -25,22 +22,21 @@ var cnt = 1;
 		if(countTaskLanes < 4 ){
 			var newLane = createNewLane(title);
 			grid.appendChild(newLane);
-			//appendDAD(newLane);	
 		}
 
 	}
 
 	function createNewLane(title){
+		console.log(title);
 		var lane = document.createElement("div");
 		lane.id = CryptoJS.MD5(getRandom());
 		lane.className = "col-md-3-5 col-xs-12 lane"
-		//lane.draggable = flagLaneDAD;
 			var laneTitle = document.createElement("div");
 			laneTitle.className = "lane-title clearfix";
 				var titleSpan = document.createElement("span");
 				titleSpan.className = "pull-left";
 				titleSpan.contentEditable = "true";
-				titleSpan.innerHTML = title;
+				titleSpan.innerHTML = (typeof title=="string")?title : "New Lane";
 			laneTitle.appendChild(titleSpan);
 				var btnAddtask = document.createElement("span");
 				btnAddtask.className = "glyphicon glyphicon-plus pull-right";
@@ -53,7 +49,6 @@ var cnt = 1;
 			laneTask.setAttribute("ondrop", "dropHandler(event);");
 			laneTask.setAttribute("ondragover", "allowDropHandler(event)");
 		lane.appendChild(laneTask);
-		//addDropHandler(lane);
 		return lane;
 	}
 
@@ -94,12 +89,11 @@ var cnt = 1;
 				taskText.innerHTML = "Some text related to the task.";
 			taskNotes.appendChild(taskText);
 		task.appendChild(taskNotes);
-		//addDragHandler(task);
 		cnt++;
 		return task;
 	}
 	
-	function toggleLaneDADCard(){
+	function toggleLaneDAD(){
 		cells = document.querySelectorAll('.lane');
 		for (var i = 0; i < cells.length; i++) {
 			if(flagLaneDAD){
