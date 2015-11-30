@@ -1,0 +1,61 @@
+body {
+  background-color: #ecf0f1;
+}
+body .navbar {
+  background-color: #03C9A9;
+  color: white;
+  font-weight: 400;
+}
+body .navbar .navbar-brand,
+body .navbar .nav.navbar-nav > li > a {
+  color: white;
+  font-weight: bold;
+}
+body .lane {
+  background-color: #FFA404;
+  padding-bottom: 20px;
+  display: block;
+  margin: 10px;
+  font-size: 16px;
+  color: #072D68;
+  word-wrap: break-word;
+  cursor: pointer;
+}
+body .lane .lane-title {
+  font: Arial;
+  font-size: 25px;
+  font-weight: bold;
+  cursor: text;
+}
+body .lane .lane-title .glyphicon-plus {
+  line-height: 1.846;
+}
+body .lane .lane-tasks {
+  height: 70vh;
+  cursor: pointer;
+}
+body .lane .lane-tasks .task {
+  margin-bottom: 5px;
+  border-bottom: 1px solid #0B3A84;
+}
+body .lane .lane-tasks .task .task-title {
+  width: 85%;
+  cursor: text;
+}
+body .lane .lane-tasks .task .task-opts {
+  width: 15%;
+}
+body .lane .lane-tasks .task .task-opts .glyphicon {
+  margin: 2.5px;
+}
+body .lane .lane-tasks .task .task-notes div {
+  width: 100%;
+}
+body .lane .lane-tasks .task .task-notes .task-date {
+  font-weight: bold;
+}
+@media (min-width: 992px) {
+  .lane.col-md-3-5 {
+    width: 22.5%;
+  }
+}
